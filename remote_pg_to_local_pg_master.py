@@ -47,3 +47,18 @@ for i in list_master_table:
 
 logging.info('close log')
 logging.shutdown()
+
+
+
+def remove_old_data(target,site):
+    conn = psycopg2.connect(host="",database="postgres", user="postgres", password='''        ''')
+    cursor = conn.cursor()
+    
+    # change to master.loc[0,0] by using timestamp or using extract date(change name to update time)    
+    querystring = '''DELETE FROM {table} WHERE site_name = '{site_id}';'''
+    
+    cursor.execute(querystring.format(table=target,site_id=site))
+    
+    conn.commit()
+
+    return print("sucessful delete old rows")
